@@ -60,6 +60,10 @@ public class BillingModule extends ReactContextBaseJavaModule implements Purchas
     if (isServiceConnected) {
       runnable.run();
     } else {
+      if (billingClient == null) {
+        billingClient = BillingClient.newBuilder(context).enablePendingPurchases().setListener(this).build();
+      }
+
       startServiceConnection(runnable, null);
     }
   }
